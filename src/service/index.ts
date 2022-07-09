@@ -1,7 +1,7 @@
 import globalRequest from "./request";
 import { BASE_URL, TIME_OUT } from "./request/config";
 
-const request = new globalRequest({
+const Api = new globalRequest({
   baseURL: BASE_URL,
   timeout: TIME_OUT,
   interceptors: {
@@ -13,8 +13,11 @@ const request = new globalRequest({
     },
     responseInterceptor: (res) => {
       return res;
+    },
+    responseInterceptorCatch: (error) => {
+      return error;
     }
   }
 });
-//  1:14:44s
-export default request;
+
+export default Api;
