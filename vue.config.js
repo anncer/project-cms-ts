@@ -1,14 +1,10 @@
 const { defineConfig } = require("@vue/cli-service");
 
+// import config from "./config";
+
 const path = require("path");
 
-function resolve(dir) {
-  return path.join(__dirname, dir);
-}
-
 const BASE_URL = process.env.NODE_ENV === "development" ? "/" : "/";
-
-const name = "人员数据中台"; // page title
 
 // const port = 3000; // dev port
 
@@ -26,14 +22,19 @@ module.exports = defineConfig({
   //   },
   //   host: "0.0.0.0",
   // },
-  configureWebpack: {
-    devtool: process.env.NODE_ENV === "development" ? "source-map" : "",
-    name: name,
-    resolve: {
-      alias: {
-        // "@": resolve("src"),
-        _c: resolve("src/components")
-      }
-    }
+  // configureWebpack: {
+  //   devtool: process.env.NODE_ENV === "development" ? "source-map" : "",
+  //   name: config.name,
+  //   resolve: {
+  //     alias: {
+  //       // "@": resolve("src"),
+  //       _c: resolve("src/components")
+  //     }
+  //   }
+  // }
+  chainWebpack: (config) => {
+    config.resolve.alias
+      .set("@", path.resolve(__dirname, "src"))
+      .set("components", "@/components");
   }
 });

@@ -1,7 +1,7 @@
-import globalRequest from "./request";
+import GlobalRequest from "./request";
 import { BASE_URL, TIME_OUT } from "./request/config";
 
-const Api = new globalRequest({
+const Api = new GlobalRequest({
   baseURL: BASE_URL,
   timeout: TIME_OUT,
   interceptors: {

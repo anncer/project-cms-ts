@@ -1,14 +1,15 @@
-import { AxiosRequestConfig } from "axios";
+import { AxiosRequestConfig, AxiosResponse } from "axios";
 // AxiosResponse
-export interface globalRequestInterceptors {
+export interface GlobalRequestInterceptors<T = AxiosResponse> {
   requestInterceptor?: (config: AxiosRequestConfig) => AxiosRequestConfig;
   requestInterceptorCatch?: (error: any) => any;
-  responseInterceptor?: (res: any) => any;
+  responseInterceptor?: (res: T) => T;
   responseInterceptorCatch?: (error: any) => any;
 }
 
-export interface globalRequestConfig extends AxiosRequestConfig {
-  interceptors?: globalRequestInterceptors;
+export interface GlobalRequestConfig<T = AxiosResponse>
+  extends AxiosRequestConfig {
+  interceptors?: GlobalRequestInterceptors<T>;
   loading?: boolean;
 }
 

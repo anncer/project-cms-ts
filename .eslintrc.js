@@ -17,6 +17,7 @@ module.exports = {
     "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",
     "@typescript-eslint/no-var-requires": "off",
     "@typescript-eslint/no-explicit-any": "off",
+    "vue/multi-word-component-names": "off",
     camelcase: 2, // 强制驼峰法命名
     "prefer-const": 1, // 首选const
     // "prefer-reflect": 1,// 首选Reflect的方法

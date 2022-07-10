@@ -1,18 +1,18 @@
 /* eslint-disable no-param-reassign */
 import axios from "axios";
 import type { AxiosInstance } from "axios";
-import type { globalRequestInterceptors, globalRequestConfig } from "./types";
+import type { GlobalRequestInterceptors, GlobalRequestConfig } from "./types";
 import { ElLoading } from "element-plus";
 
 const DEFAULT_LOADING = false;
-class globalRequest {
+class GlobalRequest {
   instance: AxiosInstance;
-  interceptors?: globalRequestInterceptors;
+  interceptors?: GlobalRequestInterceptors;
   loading: boolean;
   loadingComponent?: any;
   // qeeue: Array<AxiosInstance>;
 
-  constructor(config: globalRequestConfig) {
+  constructor(config: GlobalRequestConfig) {
     this.instance = axios.create(config);
     this.loading = config.loading ?? DEFAULT_LOADING;
     this.interceptors = config.interceptors;
@@ -62,7 +62,7 @@ class globalRequest {
     );
   }
 
-  request<T>(config: globalRequestConfig): Promise<T> {
+  request<T>(config: GlobalRequestConfig<T>): Promise<T> {
     return new Promise((resolve, reject) => {
       // 单个请求对config的处理
       if (config.interceptors?.requestInterceptor) {
@@ -93,21 +93,21 @@ class globalRequest {
     });
   }
 
-  get<T>(config: globalRequestConfig): Promise<T> {
+  get<T>(config: GlobalRequestConfig<T>): Promise<T> {
     return this.request({ ...config, method: "GET" });
   }
 
-  post<T>(config: globalRequestConfig): Promise<T> {
+  post<T>(config: GlobalRequestConfig<T>): Promise<T> {
     return this.request({ ...config, method: "POST" });
   }
 
-  delete<T>(config: globalRequestConfig): Promise<T> {
+  delete<T>(config: GlobalRequestConfig<T>): Promise<T> {
     return this.request({ ...config, method: "DELETE" });
   }
 
-  patch<T>(config: globalRequestConfig): Promise<T> {
+  patch<T>(config: GlobalRequestConfig<T>): Promise<T> {
     return this.request({ ...config, method: "PATCH" });
   }
 }
 
-export default globalRequest;
+export default GlobalRequest;
