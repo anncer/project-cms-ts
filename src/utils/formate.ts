@@ -1,4 +1,4 @@
-import { arrayLen, isRealArray, isObject } from "./comment";
+import { isRealArray, isObject } from "./comment";
 
 /**
  * Parse the time to string
@@ -6,12 +6,12 @@ import { arrayLen, isRealArray, isObject } from "./comment";
  * @param {string} cFormat
  * @returns {string}
  */
-export function parseTime(time, cFormat) {
+export function parseTime(time: string | number | object, cFormat: string) {
   if (arguments.length === 0) {
     return null;
   }
   const format = cFormat || "{y}-{m}-{d} {h}:{i}:{s}";
-  let date;
+  let date: any;
   if (typeof time === "object") {
     date = time;
   } else {
@@ -23,7 +23,7 @@ export function parseTime(time, cFormat) {
     }
     date = new Date(time);
   }
-  const formatObj = {
+  const formatObj: any = {
     y: date.getFullYear(),
     m: date.getMonth() + 1,
     d: date.getDate(),
@@ -34,7 +34,6 @@ export function parseTime(time, cFormat) {
   };
   const timeStr = format.replace(/{(y|m|d|h|i|s|a)+}/g, (result, key) => {
     let value = formatObj[key];
-    // Note: getDay() returns 0 on Sunday
     if (key === "a") {
       return ["日", "一", "二", "三", "四", "五", "六"][value];
     }
@@ -51,14 +50,8 @@ export function parseTime(time, cFormat) {
  * @param {string} option
  * @returns {string}
  */
-export function formatTime(time, option) {
-  let t;
-  if (String(time).length === 10) {
-    t = parseInt(time) * 1000;
-  } else {
-    t = Number(time);
-  }
-  const d = new Date(time);
+export function formatTime(time: number) {
+  const d = new Date(time).getTime();
   const now = Date.now();
 
   const diff = (now - d) / 1000;
@@ -73,31 +66,16 @@ export function formatTime(time, option) {
   } else if (diff < 3600 * 24 * 2) {
     return "1天前";
   }
-  if (option) {
-    return parseTime(t, option);
-  } else {
-    return (
-      d.getMonth() +
-      1 +
-      "月" +
-      d.getDate() +
-      "日" +
-      d.getHours() +
-      "时" +
-      d.getMinutes() +
-      "分"
-    );
-  }
 }
 
 /**
  * @param {string} url
  * @returns {Object}
  */
-export function getQueryObject(url) {
+export function getQueryObject(url: string) {
   const path = url == null ? window.location.href : url;
   const search = path.substring(path.lastIndexOf("?") + 1);
-  const obj = {};
+  const obj: any = {};
   const reg = /([^?&=]+)=([^?&=]*)/g;
   search.replace(reg, (rs, $1, $2) => {
     const name = decodeURIComponent($1);
@@ -113,7 +91,7 @@ export function getQueryObject(url) {
  * @param {string} input value
  * @returns {number} output value
  */
-export function byteLength(str) {
+export function byteLength(str: string) {
   // returns the byte length of an utf8 string
   let s = str.length;
   for (let i = str.length - 1; i >= 0; i--) {
@@ -129,7 +107,7 @@ export function byteLength(str) {
  * @param {Array} actual
  * @returns {Array}
  */
-export function cleanArray(actual) {
+export function cleanArray(actual: any[]) {
   const newArray = [];
   for (let i = 0; i < actual.length; i++) {
     if (actual[i]) {
@@ -143,7 +121,7 @@ export function cleanArray(actual) {
  * @param {Object} json
  * @returns {Array}
  */
-export function param(json) {
+export function param(json: any): string {
   if (!json) return "";
   return cleanArray(
     Object.keys(json).map((key) => {
@@ -157,7 +135,7 @@ export function param(json) {
  * @param {string} url
  * @returns {Object}
  */
-export function param2Obj(url) {
+export function param2Obj(url: string) {
   const search = url.split("?")[1];
   if (!search) {
     return {};
@@ -177,73 +155,17 @@ export function param2Obj(url) {
  * @param {string} val
  * @returns {string}
  */
-export function html2Text(val) {
+export function html2Text(val: string) {
   const div = document.createElement("div");
   div.innerHTML = val;
   return div.textContent || div.innerText;
 }
 
 /**
- * Merges two objects, giving the last one precedence
- * @param {Object} target
- * @param {(Object|Array)} source
- * @returns {Object}
- */
-export function objectMerge(target, source) {
-  let res = target;
-  if (typeof res !== "object") {
-    res = {};
-  }
-  if (Array.isArray(source)) {
-    return source.slice();
-  }
-  Object.keys(source).forEach((property) => {
-    const sourceProperty = source[property];
-    if (typeof sourceProperty === "object") {
-      res[property] = objectMerge(res[property], sourceProperty);
-    } else {
-      res[property] = sourceProperty;
-    }
-  });
-  return res;
-}
-
-/**
- * @param {HTMLElement} element
- * @param {string} className
- */
-export function toggleClass(element, className) {
-  if (!element || !className) {
-    return;
-  }
-  let classString = element.className;
-  const nameIndex = classString.indexOf(className);
-  if (nameIndex === -1) {
-    classString += String(className);
-  } else {
-    classString =
-      classString.substr(0, nameIndex) +
-      classString.substr(nameIndex + className.length);
-  }
-  element.className = classString;
-}
-
-/**
- * @param {string} type
- * @returns {Date}
- */
-export function getTime(type) {
-  if (type === "start") {
-    return new Date().getTime() - 3600 * 1000 * 24 * 90;
-  } else {
-    return new Date(new Date().toDateString());
-  }
-}
-/**
  * @param {Array} arr
  * @returns {Array}
  */
-export function uniqueArr(arr) {
+export function uniqueArr(arr: any[]) {
   return Array.from(new Set(arr));
 }
 
@@ -252,8 +174,8 @@ export const getAllQuery = () => {
   return getAllQueryString(window.location.href);
 };
 // 根据地址获取所有地址栏参数
-export const getAllQueryString = (src) => {
-  const query = {};
+export const getAllQueryString = (src: string) => {
+  const query: any = {};
   const str = src.substr(src.indexOf("?") + 1, src.length);
   const arr = str.split("&");
   for (let i = 0; i < arr.length; i++) {
@@ -265,11 +187,11 @@ export const getAllQueryString = (src) => {
   return query;
 };
 // 获取地址栏单个已知参数
-export const getQueryString = (name) => {
+export const getQueryString = (name: string) => {
   return getQueryStringByUrl(name, window.location.href);
 };
 // 根据地址获取参数
-export const getQueryStringByUrl = (name, str) => {
+export const getQueryStringByUrl = (name: string, str: string) => {
   const reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
   const r = str.substr(str.indexOf("?") + 1).match(reg);
   if (r != null) return unescape(r[2]);
@@ -277,9 +199,9 @@ export const getQueryStringByUrl = (name, str) => {
 };
 // coin 是符号， arr 是数组， type 是加载前面还是后面 true 为前，false为后
 // 把数组转化为以点隔开的字符串   默认是后面点
-export const toPoint = (arr, coin = ",", type = false) => {
+export const toPoint = (arr: any[], coin = ",", type = false) => {
   let str = "";
-  if (arrayLen(arr) > 0) {
+  if (arr.length > 0) {
     arr.forEach((it, i) => {
       // 放在前面的时候第一个不放
       // 放在后面的时候最后一个不放
@@ -293,29 +215,8 @@ export const toPoint = (arr, coin = ",", type = false) => {
   return str;
 };
 
-const deepSetObj = (obj, arr) => {
-  for (const it in obj) {
-    if (isObject(obj[it])) {
-      deepSetObj(obj[it], arr);
-    } else {
-      arr.push(it + "=" + obj[it]);
-    }
-  }
-};
-
 // 循环对象，并吧有值的键值对写在地址的后边
-export const jointUrl = (baseUrl, obj) => {
-  if (obj) {
-    const arr = [];
-    deepSetObj(obj, arr);
-    return isRealArray(arr) ? baseUrl + "?" + toPoint(arr, "&") : baseUrl;
-  } else {
-    return baseUrl;
-  }
-};
-
-// 循环对象，并吧有值的键值对写在地址的后边
-export const jointUrl2 = (baseUrl, obj) => {
+export const jointUrl2 = (baseUrl: string, obj: any) => {
   if (obj) {
     const arr = [];
     for (const it in obj) {

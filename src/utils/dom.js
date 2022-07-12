@@ -1,6 +1,34 @@
+/**
+ * @param {HTMLElement} element
+ * @param {string} className
+ */
+export function toggleClass(element, className) {
+  if (!element || !className) {
+    return;
+  }
+  let classString = element.className;
+  const nameIndex = classString.indexOf(className);
+  if (nameIndex === -1) {
+    classString += String(className);
+  } else {
+    classString =
+      classString.substr(0, nameIndex) +
+      classString.substr(nameIndex + className.length);
+  }
+  element.className = classString;
+}
+
+// 获取一个元素的样式
+export const getCss = (obj, attribute) => {
+  if (obj.currentStyle) {
+    return obj.currentStyle[attribute];
+  } else {
+    return window.getComputedStyle(obj, null)[attribute];
+  }
+};
+
 /*
  * 获取元素位置
- *  by wangzhen
  */
 export const getPoint = (obj) => {
   // 获取某元素以浏览器左上角为原点的坐标
@@ -20,7 +48,6 @@ export const getPoint = (obj) => {
 
 /**
  * 截取字符串
- * @author by wangzhen
  * @param {string}
  */
 export const sliceFirst = (str) => {
@@ -28,7 +55,6 @@ export const sliceFirst = (str) => {
 };
 /**
  * 根据传入的参数判断用id class查找元素
- * @author by wangzhen
  * @param {string} .app #app
  */
 export const getDom = (str) => {
@@ -43,7 +69,6 @@ export const getDom = (str) => {
 };
 /**
  * 获取元素的所有父级, 目前只支持className
- * @author wangzhen
  * @param {Dom Object} value
  * @param {String} .xxxx
  */
@@ -52,6 +77,7 @@ export const getParents = (name, clazz) => {
   const dom = getDomByStr(name);
   return getParentTags(dom, clazz);
 };
+
 const getParentTags = (startTag, clazz, parentTagList = []) => {
   // 传入标签是否是DOM对象
   if (!(startTag instanceof HTMLElement))
@@ -82,6 +108,7 @@ export const getParent = (name) => {
   }
   return dom.parentElement;
 };
+
 // export const getParents = (dom, clazz) => {
 //   if (!clazz) return null;
 //   // const int = clazz.substr(0,1)
@@ -93,7 +120,6 @@ export const getParent = (name) => {
 // };
 /**
  * 创建对象，传入dom名称
- * @author wangzhen
  * @param {Dom Object} value
  * @param {String} dom name
  */
@@ -102,7 +128,6 @@ export const createDom = (name) => {
 };
 /**
  * 设置元素的样式
- * @author wangzhen
  * @param {Dom Object/ String}
  * @param {Object}
  */
@@ -114,7 +139,6 @@ export const setStyle = (name, obj) => {
 };
 /**
  * 判断元素是不是element元素或者根元素
- * @author wangzhen
  */
 export const isElement = (dom) => {
   return Boolean(dom && (dom.nodeType === 1 || dom.nodeType === 9));
@@ -122,7 +146,6 @@ export const isElement = (dom) => {
 /**
  * 判断字符串能不能查到元素，
  * 如果是，返回元素，不是则返回null
- * @author wangzhen
  */
 export const getDomByStr = (name) => {
   let dom = null;
@@ -137,7 +160,6 @@ export const getDomByStr = (name) => {
 };
 /**
  * 设置元素的文字
- * @author wangzhen
  * @param {Dom Object} value
  * @param {String, Dom} .xxxx
  */
