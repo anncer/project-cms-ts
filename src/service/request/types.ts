@@ -21,3 +21,9 @@ export interface qeeueItem {
   beforeClose?: () => boolean;
   closed?: () => void;
 }
+
+export interface responseBody {
+  code: number;
+  msg: string;
+  data: any;
+}

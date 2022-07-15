@@ -41,15 +41,27 @@ class GlobalRequest {
         // 关闭loading
         this.loadingComponent?.close();
         // checkStatus
-
-        return res.data;
+        const data = res.data;
+        if (data instanceof Blob) {
+          return data;
+        }
+        const status = data.code;
+        if (Number(status) === 20000) {
+          return data;
+        } else {
+          // Msg("error", "请求失败！");
+          // router.push({name: '401'})
+        }
       },
       (error) => {
         this.loadingComponent?.close();
-
+        if (error.response.status === 404) {
+          console.log(404);
+        }
         return error;
       }
     );
+
     // 实例的拦截器
     this.instance.interceptors.request.use(
       this.interceptors?.requestInterceptor,
@@ -64,7 +76,7 @@ class GlobalRequest {
 
   request<T>(config: GlobalRequestConfig<T>): Promise<T> {
     return new Promise((resolve, reject) => {
-      // 单个请求对config的处理
+      // 单个请求对config的处理(接口拦截器)
       if (config.interceptors?.requestInterceptor) {
         config = config.interceptors.requestInterceptor(config);
       }
@@ -75,7 +87,7 @@ class GlobalRequest {
       this.instance
         .request<any, T>(config)
         .then((res) => {
-          // 单个请求数据的处理
+          // 单个请求数据的处理(接口拦截器)
           if (config.interceptors?.responseInterceptor) {
             res = config.interceptors.responseInterceptor(res);
           }

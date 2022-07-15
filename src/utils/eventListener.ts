@@ -8,7 +8,7 @@ const EventListener = {
    * @param {function} callback Callback function.
    * @return {object} Object with a `remove` method.
    */
-  listen(target, eventType, callback) {
+  listen(target: any, eventType: string, callback: any) {
     if (target.addEventListener) {
       target.addEventListener(eventType, callback, false);
       return {

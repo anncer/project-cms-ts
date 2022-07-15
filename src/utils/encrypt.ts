@@ -6,7 +6,7 @@ import JSEncrypt from "jsencrypt";
 const encryptor = new JSEncrypt();
 encryptor.setPublicKey(PUBLIC_KEY);
 
-export default (data) => {
+export default (data: object): string => {
   const raw = typeof data === "object" ? JSON.stringify(data) : data;
   return `Bearer ${encryptor.encrypt(raw)}`;
 };
