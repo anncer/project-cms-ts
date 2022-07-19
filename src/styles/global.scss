@@ -266,27 +266,7 @@
     margin-bottom: 0 !important;
   }
 }
-.el-form-item {
-  .el-form-item__label {
-    // line-height: 20px;
-  }
-  .el-input__inner {
-    height: 32px;
-    line-height: 32px;
-  }
-}
-// 填表
-.bi-params_form {
-  .el-form-item {
-    margin-bottom: 18px;
-  }
-  .el-form-item__label {
-    // line-height: 32px;
-  }
-  .el-form-item__content {
-    line-height: 32px;
-  }
-}
+
 // 表格
 .table-btn {
   color: $blue;

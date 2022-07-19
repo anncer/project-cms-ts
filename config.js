@@ -3,5 +3,5 @@ export default {
   leftWidth: "200", // 左侧菜单宽度px
   projectName: "",
   topbar: true, // 是否有头部菜单
-  topWidth: "60" // 头部菜单宽度
+  topHeight: "60" // 头部菜单宽度
 };

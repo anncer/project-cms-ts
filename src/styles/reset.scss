@@ -37,11 +37,6 @@ body {
   line-height: 1.5;
 }
 
-/* A elements that don't have a class get default styles */
-a:not([class]) {
-  text-decoration-skip-ink: auto;
-}
-
 /* Make images easier to work with */
 img,
 picture {
@@ -89,7 +84,6 @@ input:-webkit-autofill {
 // @public scss
 
 body {
-  height: 100%;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
@@ -102,9 +96,13 @@ label {
   font-weight: 400;
 }
 
-html {
+html,
+body,
+#app {
+  width: 100%;
   height: 100%;
 }
+
 
 i,
 span,
