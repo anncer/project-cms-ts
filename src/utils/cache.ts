@@ -39,6 +39,16 @@ class LocalCache {
       Cookies.remove(key);
     }
   }
+
+  clearCache(type: Types) {
+    if (type === Types.session) {
+      window.sessionStorage.clear();
+    } else if (type === Types.local) {
+      window.localStorage.clear();
+    } else {
+      document.cookie = "";
+    }
+  }
 }
 
 export default new LocalCache();
