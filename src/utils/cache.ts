@@ -7,23 +7,19 @@ enum Types {
 
 class LocalCache {
   setCache(key: string, value: any, type: Types) {
-    if (type === Types.session) {
-      window.sessionStorage.setItem(key, JSON.stringify(value));
-    } else if (type === Types.local) {
-      window.localStorage.setItem(key, JSON.stringify(value));
-    } else {
+    if (type === Types.cookie) {
       Cookies.set(key, value);
+    } else {
+      window[type].setItem(key, JSON.stringify(value));
     }
   }
 
   getCache(key: string, type: Types) {
     let value: string;
-    if (type === Types.session) {
-      value = window.sessionStorage.getItem(key) || "";
-    } else if (type === Types.local) {
-      value = window.localStorage.getItem(key) || "";
-    } else {
+    if (type === Types.cookie) {
       value = String(Cookies.get(key));
+    } else {
+      value = window[type].getItem(key) || "";
     }
     if (value) {
       return JSON.parse(value);
@@ -31,22 +27,18 @@ class LocalCache {
   }
 
   deleteCache(key: string, type: Types) {
-    if (type === Types.session) {
-      window.sessionStorage.removeItem(key);
-    } else if (type === Types.local) {
-      window.localStorage.removeItem(key);
-    } else {
+    if (type === Types.cookie) {
       Cookies.remove(key);
+    } else {
+      window[type].removeItem(key);
     }
   }
 
   clearCache(type: Types) {
-    if (type === Types.session) {
-      window.sessionStorage.clear();
-    } else if (type === Types.local) {
-      window.localStorage.clear();
-    } else {
+    if (type === Types.cookie) {
       document.cookie = "";
+    } else {
+      window[type].clear();
     }
   }
 }
