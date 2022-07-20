@@ -32,18 +32,18 @@ export default defineComponent({
     // 获取子组件实例
     // const panelRef = ref<InstanceType<typeof LoginPanel>>();
     // console.log(panelRef.value?.handleLogin());
-    const setRedirect = () => {
-      //   const redirect = $route.query.redirect;
-      //   loading = false;
-      //   redirect
-      //     ? $router.push(redirect)
-      //     : $router.push({ name: "home" });
-    };
+    // const setRedirect = () => {
+    //   //   const redirect = $route.query.redirect;
+    //   //   loading = false;
+    //   //   redirect
+    //   //     ? $router.push(redirect)
+    //   //     : $router.push({ name: "home" });
+    // };
 
-    const goNext = () => {
-      setRedirect();
-      // loading = ref(false);
-    };
+    // const goNext = () => {
+    //   setRedirect();
+    //   // loading = ref(false);
+    // };
 
     return {
       bg,

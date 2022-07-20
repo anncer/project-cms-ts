@@ -6,7 +6,6 @@ const illustration4 = require("../img/illustration4.svg");
 const illustration5 = require("../img/illustration5.svg");
 const illustration6 = require("../img/illustration6.svg");
 import { ILoginForm, IErrorMsg } from "../type.d";
-import encrypt from "@/utils/encrypt";
 
 export const setBg = () => {
   switch (String(new Date().getDay())) {
@@ -61,37 +60,4 @@ export const cleckFormData = (
   errorMsg.userErr = !isUserLen ? "请输入正确的手机号" : "";
   errorMsg.pwdErr = !isPwd ? "请输入验证码" : "";
   return isUser && isUserLen && isPwd;
-};
-
-export const onLogin = (loginForm: ILoginForm): Promise<T> => {
-  const formData = {
-    username: loginForm.username,
-    code: loginForm.password
-  };
-  const _TOKEN = encrypt(formData);
-  console.log(_TOKEN, "_TOKEN");
-  return new Promise((resolve, reject) => {
-    resolve({});
-    reject("");
-  });
-  // this.$store
-  //   .dispatch("user/login", _TOKEN)
-  //   .then(() => {
-  //     this.$store
-  //       .dispatch("user/setUserId", false)
-  //       .then(() => {
-  //         console.log(this.avatar, "this.avatar");
-  //         // if (this.avatar) {
-  //         //   this.$store.dispatch("user/setAvatarById", this.avatar);
-  //         // }
-  //         this.goNext();
-  //       })
-  //       .catch(() => {
-  //         this.goNext();
-  //       });
-  //   })
-  //   .catch(() => {
-  //     this.$msg("error", "登录失败，请重试！");
-  //     this.loading = false;
-  //   });
 };

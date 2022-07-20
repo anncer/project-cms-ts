@@ -5,6 +5,7 @@ import type { GlobalRequestInterceptors, GlobalRequestConfig } from "./types";
 import { ElLoading } from "element-plus";
 
 const DEFAULT_LOADING = false;
+
 class GlobalRequest {
   instance: AxiosInstance;
   interceptors?: GlobalRequestInterceptors;

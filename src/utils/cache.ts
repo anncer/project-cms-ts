@@ -1,22 +1,23 @@
 import Cookies from "js-cookie";
-enum Types {
+
+enum CacheTe {
   local = "localStorage",
   session = "sessionStorage",
   cookie = "cookie"
 }
 
 class LocalCache {
-  setCache(key: string, value: any, type: Types) {
-    if (type === Types.cookie) {
+  set(key: string, value: any, type: CacheTe = CacheTe.cookie) {
+    if (type === CacheTe.cookie) {
       Cookies.set(key, value);
     } else {
       window[type].setItem(key, JSON.stringify(value));
     }
   }
 
-  getCache(key: string, type: Types) {
+  get(key: string, type: CacheTe = CacheTe.cookie) {
     let value: string;
-    if (type === Types.cookie) {
+    if (type === CacheTe.cookie) {
       value = String(Cookies.get(key));
     } else {
       value = window[type].getItem(key) || "";
@@ -24,19 +25,27 @@ class LocalCache {
     if (value) {
       return JSON.parse(value);
     }
+    return null;
   }
 
-  deleteCache(key: string, type: Types) {
-    if (type === Types.cookie) {
+  delete(key: string, type: CacheTe = CacheTe.cookie) {
+    if (type === CacheTe.cookie) {
       Cookies.remove(key);
     } else {
       window[type].removeItem(key);
     }
   }
 
-  clearCache(type: Types) {
-    if (type === Types.cookie) {
-      document.cookie = "";
+  clear(type: CacheTe = CacheTe.cookie) {
+    if (type === CacheTe.cookie) {
+      document.cookie
+        .split(";")
+        .forEach(
+          (cookie) =>
+            (document.cookie = cookie
+              .replace(/^ +/, "")
+              .replace(/=.*/, `=;expires=${new Date(0).toUTCString()};path=/`))
+        );
     } else {
       window[type].clear();
     }

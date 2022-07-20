@@ -10,7 +10,9 @@ import "element-plus/dist/index.css";
 import "normalize.css";
 import "./styles/index.scss";
 
-// import Api from "./service";
+import { importWhole } from "@/components/IconSvg/index";
+
+importWhole();
 
 const app = createApp(App);
 

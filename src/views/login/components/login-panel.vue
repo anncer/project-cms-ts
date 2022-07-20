@@ -54,14 +54,18 @@ import {
   checkPwdVal,
   checkUserVal,
   checkPhone,
-  cleckFormData,
-  onLogin
+  cleckFormData
 } from "../hooks/useLoginHook";
 import { division, subtraction } from "@/utils/count";
+import encrypt from "@/utils/encrypt";
+import { useStore } from "vuex";
+import { getVerifyCode } from "@/api/login/login";
 
 export default defineComponent({
   name: "LoginPanel",
   setup() {
+    const store = useStore();
+
     const loginForm = reactive<ILoginForm>({
       username: "",
       password: ""
@@ -148,27 +152,36 @@ export default defineComponent({
 
     const handleVirify = (): void => {
       if (checkPhone(loginForm, errorMsg)) {
-        // getVerifyCode(loginForm.username)
-        //   .then((res) => {
-        //     if (!res.data) {
-        //       // $msg("error", "验证码发送失败！");
-        //     } else {
-        //       localStorage.setItem("virifySendTime", new Date().getTime().toString());
-        //       // $msg("验证码发送成功！");
-        //       pwdDisabled = ref(true);
-        //       setVirifyTimer();
-        //     }
-        //   })
-        //   .catch(() => {
-        //     // $msg("error", "验证码发送失败！");
-        //   });
+        getVerifyCode(loginForm.username)
+          .then((res) => {
+            if (!res.data) {
+              // $msg("error", "验证码发送失败！");
+            } else {
+              localStorage.setItem(
+                "virifySendTime",
+                new Date().getTime().toString()
+              );
+              // $msg("验证码发送成功！");
+              pwdDisabled = ref(true);
+              setVirifyTimer();
+            }
+          })
+          .catch(() => {
+            // $msg("error", "验证码发送失败！");
+          });
       }
     };
 
-    const handleLogin = (): void => {
+    const handleLogin = async () => {
       const flag = cleckFormData(loginForm, errorMsg);
       if (flag) {
-        onLogin(loginForm);
+        const formData = {
+          username: loginForm.username,
+          code: loginForm.password
+        };
+        const _TOKEN = encrypt(formData);
+        console.log(_TOKEN, "_TOKEN");
+        await store.dispatch("user/accountLoginAction", _TOKEN);
       }
     };
 
