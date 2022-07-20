@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   leftbar: true, // 是否有左侧菜单
   leftWidth: "200", // 左侧菜单宽度px
   projectName: "",

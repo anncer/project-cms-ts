@@ -1,12 +1,10 @@
 const { defineConfig } = require("@vue/cli-service");
 
-// import config from "./config";
-
+const config = require("./config");
 const path = require("path");
-
 const BASE_URL = process.env.NODE_ENV === "development" ? "/" : "/";
-
-const port = 3000; // dev port
+// dev port
+const port = 3000;
 
 module.exports = defineConfig({
   transpileDependencies: true,
@@ -16,10 +14,6 @@ module.exports = defineConfig({
   productionSourceMap: false,
   devServer: {
     port: port,
-    overlay: {
-      warnings: false,
-      errors: true
-    },
     host: "0.0.0.0",
     proxy: {
       "^/api": {
@@ -32,8 +26,8 @@ module.exports = defineConfig({
     }
   },
   configureWebpack: {
-    // devtool: process.env.NODE_ENV === "development" ? "source-map" : "",
-    // name: config.name,
+    name: config.name,
+    devtool: process.env.NODE_ENV === "development" ? "source-map" : "",
     resolve: {
       alias: {
         // "@": resolve("src"),
