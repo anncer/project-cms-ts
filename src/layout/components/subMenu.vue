@@ -1,21 +1,21 @@
 <template>
   <div class="menu-box">
-    <el-submenu
+    <el-sub-menu
       v-if="checkChildren(item) && checkPromise(item)"
-      ref="subMenu"
+      ref="sub-Menu"
       :index="item.component"
       popper-append-to-body
     >
       <template v-slot:title>
         <menuItem :icon="item.icon" :title="item.name" />
       </template>
-      <subMenu
+      <sub-Menu
         v-for="child in item.children"
         :key="child.component"
         :item="child"
         class="nest-menu"
       />
-    </el-submenu>
+    </el-sub-menu>
     <template v-else>
       <el-menu-item
         v-if="checkPromise(item)"
@@ -27,16 +27,12 @@
     </template>
   </div>
 </template>
+<script lang="ts">
+import { defineComponent } from "vue";
+import { isProperty, isRealArray } from "@/utils/comment";
 
-<script>
-import menuItem from "./menuItem";
-import { isRealArray, isProperty } from "@/utils/comment";
-// import { getAccessMenu } from '@/api/table'
-export default {
+export default defineComponent({
   name: "subMenu",
-  components: {
-    menuItem
-  },
   props: {
     item: {
       type: Object
@@ -50,21 +46,25 @@ export default {
       type: Boolean
     }
   },
-  data() {
-    return {};
-  },
-  methods: {
-    checkPromise(item) {
+  setup() {
+    const checkPromise = (item: any) => {
       return isProperty(item, "ishidden") && !item.ishidden;
-    },
-    checkChildren(item) {
+    };
+
+    const checkChildren = (item: any) => {
       return isProperty(item, "children") && isRealArray(item.children);
-    },
-    goToPage(it) {
-      if (it.component !== this.activeMenu) {
-        this.$router.push({ name: it.component });
-      }
-    }
+    };
+
+    const goToPage = () => {
+      // if (it.component !== this.activeMenu) {
+      //   this.$router.push({ name: it.component });
+      // }
+    };
+    return {
+      checkPromise,
+      goToPage,
+      checkChildren
+    };
   }
-};
+});
 </script>

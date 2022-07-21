@@ -10,7 +10,7 @@ export function isObject(obj: object) {
   return Object.prototype.toString.call(obj) === "[object Object]";
 }
 // 检测是否是长度大于0的数组
-export const isRealArray = (arr: any[]) => {
+export const isRealArray = (arr: any) => {
   return arr instanceof Array && arr.length > 0;
 };
 
@@ -60,7 +60,7 @@ export const isNone = (some: any): boolean => {
 };
 
 // 检测某个对象时候含有某个key
-export const isProperty = (obj: object, key: string) => {
+export const isProperty = (obj: any, key: string) => {
   return Object.prototype.hasOwnProperty.call(obj, key);
 };
 

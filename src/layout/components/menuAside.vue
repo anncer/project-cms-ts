@@ -1,27 +1,25 @@
 <template>
-  <div class="menu-aside" :class="{ 'min-menu': !sideBarOpen }">
+  <div class="menu-aside" :class="{ 'min-menu': false }">
     <div class="menu-wrapper">
       <!-- <div class="menu-opts" @click="handleCollapse">
         <i v-if="sideBarOpen" class="el-icon-arrow-left"></i>
         <i v-else class="el-icon-arrow-right"></i>
       </div> -->
-      <el-scrollbar wrap-class="scrollbar-wrapper">
-        <el-menu
-          class="menu-content"
-          :default-active="activeMenu"
-          :collapse="!sideBarOpen"
-          :unique-opened="true"
-          :collapse-transition="true"
-          mode="vertical"
-        >
-          <sumMenu
-            v-for="it in userMenus"
-            :key="it.component"
-            :item="it"
-            v-show="!it.isHidden"
-          ></sumMenu>
-        </el-menu>
-      </el-scrollbar>
+      <el-menu
+        class="menu-content"
+        :default-active="activeMenu"
+        :collapse="false"
+        :unique-opened="true"
+        :collapse-transition="true"
+        mode="vertical"
+      >
+        <sumMenu
+          v-for="it in userMenus"
+          :key="it.component"
+          :item="it"
+          v-show="!it.isHidden"
+        ></sumMenu>
+      </el-menu>
     </div>
   </div>
 </template>
@@ -32,7 +30,18 @@ import { defineComponent } from "vue";
 export default defineComponent({
   name: "MenuAside",
   setup() {
-    return {};
+    const userMenus = [
+      {
+        name: "人员采集信息",
+        path: "/info",
+        compoment: "info",
+        icon: "location"
+      }
+    ];
+    return {
+      userMenus,
+      activeMenu: ""
+    };
   }
 });
 // import variables from "@/styles/variables.scss";
