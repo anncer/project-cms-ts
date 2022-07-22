@@ -11,7 +11,7 @@ import "element-plus/dist/index.css";
 import "normalize.css";
 import "./styles/index.scss";
 
-import { importWhole } from "@/components/IconSvg/index";
+import { importWhole } from "@/components/SvgIcon/index";
 
 importWhole();
 

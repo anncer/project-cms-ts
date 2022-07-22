@@ -1,12 +1,12 @@
-import iconsvg from "./index.vue";
+import svgicon from "./index.vue";
 
 /**
- * 自动导入 @/assets/iconsvg 下svg文件
+ * 自动导入 @/assets/svgicon 下svg文件
  */
 export function importWhole(): void {
   try {
     const requireContext: __WebpackModuleApi.RequireContext = require.context(
-      "../../assets/iconsvg",
+      "../../assets/svgicon",
       false,
       /\.svg$/
     );
@@ -17,4 +17,4 @@ export function importWhole(): void {
   }
 }
 
-export default iconsvg;
+export default svgicon;

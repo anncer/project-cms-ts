@@ -39,14 +39,14 @@ module.exports = defineConfig({
     // 内置的 svg Rule 添加 exclude
     config.module
       .rule("svg")
-      .exclude.add(/iconsvg/)
+      .exclude.add(/svgicon/)
       .end();
 
     // 添加 svg-sprite-loader Rule
     config.module
       .rule("svg-sprite-loader")
       .test(/.svg$/)
-      .include.add(/iconsvg/)
+      .include.add(/svgicon/)
       .end()
       .use("svg-sprite-loader")
       .loader("svg-sprite-loader");
@@ -55,13 +55,13 @@ module.exports = defineConfig({
     config.module
       .rule("svgo")
       .test(/.svg$/)
-      .include.add(/iconsvg/)
+      .include.add(/svgicon/)
       .end()
       .use("svgo-loader")
       .loader("svgo-loader")
       .options({
         // externalConfig 配置特殊不是相对路径，起始路径是根目录
-        externalConfig: "./src/assets/iconsvg/svgo.yml"
+        externalConfig: "./src/assets/svgicon/svgo.yml"
       });
   }
 });

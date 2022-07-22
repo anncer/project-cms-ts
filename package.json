@@ -7,7 +7,7 @@
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
-    "svgo": "svgo -f src/assets/iconsvg --config=src/assets/iconsvg/svgo.yml",
+    "svgo": "svgo -f src/assets/svgicon --config=src/assets/svgicon/svgo.yml",
     "prettier": "prettier --write ."
   },
   "dependencies": {
@@ -46,6 +46,7 @@
     "sass": "^1.32.7",
     "sass-loader": "^12.0.0",
     "svg-sprite-loader": "^6.0.11",
+    "svgo-loader": "^3.0.1",
     "typescript": "~4.5.5"
   },
   "gitHooks": {

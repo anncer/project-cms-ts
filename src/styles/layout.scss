@@ -1,6 +1,15 @@
 @import '~@/styles/mixin.scss';
 @import '~@/styles/variables.scss';
 
+.menu-wrapper{
+  height: calc(100% - 18px);
+  width: 100%;
+  padding-top: 18px;
+  position: relative;
+}
+.menu-content{
+  margin-top: 20px;
+}
 .menu-aside{
   transition: width 0.28s;
   width: $sideBarWidth;
@@ -44,4 +53,66 @@
       left: 64px;
     }
   }
+}
+
+.app-main {
+  width: 100%;
+  // min-height: calc(100vh - #{$headerHeight});
+  font-size: 14px;
+  position: relative;
+  overflow: hidden;
+}
+// fix css style bug in open el-dialog
+.el-popup-parent--hidden {
+  .fixed-header {
+    padding-right: 15px;
+  }
+}
+.aside-logo{
+  width: calc(#{$sideBarWidth} / 4);
+  margin-left: calc(#{$sideBarWidth} / 3);
+  margin-top: 10px;
+  img{
+    width: 100%;
+    cursor: pointer;
+  }
+}
+
+.el-menu .el-menu-item:focus .menu-item-text {
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+.menu-box,
+.el-menu-item,
+.el-sub-menu,
+.el-submenu__title,
+.el-sub-menu__title,
+.el-sub-menu__icon-arrow,
+.el-menu .el-menu-item:focus .menu-item-text
+ {
+  color: $asideFontColor;
+}
+
+
+.menu-box,
+.el-menu-item,
+.el-submenu .el-menu {
+  background: $asideBg;
+}
+.el-menu-item.is-active,
+.el-submenu__title,
+.el-sub-menu__title,
+.el-sub-menu__icon-arrow,
+.el-submenu__title:hover,
+.el-menu-item:focus {
+  background: $asideBg !important;
+  color: $asideFontColor !important;
+}
+.el-submenu__title,
+.el-sub-menu__title,
+.el-sub-menu__icon-arrow,
+.el-menu .el-menu-item:hover {
+  background: $asideBg !important;
+  color: $asideFontColor !important;
 }

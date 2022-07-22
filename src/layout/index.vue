@@ -1,5 +1,5 @@
 <template>
-  <menu-aside></menu-aside>
+  <sider-menu></sider-menu>
   <transition name="fade">
     <div class="wrap-container">
       <app-main />
@@ -10,12 +10,12 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import AppMain from "@/layout/components/appMain.vue";
-import MenuAside from "./components/menuAside.vue";
+import siderMenu from "./components/siderMenu.vue";
 export default defineComponent({
   name: "Layout",
   components: {
     AppMain,
-    MenuAside
+    siderMenu
   },
   setup() {
     return {};
